@@ -1,4 +1,2 @@
-# Also install: sudo apt-get install libportaudio2 
-# sudo apt-get install libopenblas-devsudo apt-get install libopenblas-dev
 numpy
 sounddevice

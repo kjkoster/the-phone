@@ -4,16 +4,13 @@ import sounddevice as sd
 samplerate = 44100
 frequency = 1000
 amplitude = 0.2
-
-t = np.arange(0, samplerate) / samplerate
-base_waveform = np.sin(2 * np.pi * frequency * t)
+phase = 0.0
+phase_increment = 2 * np.pi * frequency / samplerate
 
 devices = sd.query_devices()
-print(devices)
 jack_index = None
 for i, d in enumerate(devices):
     print(d)
-    print(d["name"])
     if "headphone" in d["name"].lower():
         jack_index = i
         break
@@ -24,8 +21,10 @@ if jack_index is None:
 sd.default.device = jack_index
 
 def callback(outdata, frames, time, status):
-    global amplitude
-    outdata[:] = (amplitude * base_waveform[:frames]).reshape(-1, 1)
+    global phase, amplitude
+    t = phase + np.arange(frames) * phase_increment
+    outdata[:, 0] = amplitude * np.sin(t)
+    phase = (t[-1] + phase_increment) % (2 * np.pi)
 
 with sd.OutputStream(channels=1, samplerate=samplerate, callback=callback):
     try:
