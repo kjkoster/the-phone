@@ -48,7 +48,23 @@ Python has an excellend library called
 [sounddevice](https://pypi.org/project/sounddevice/) that handles selecting the
 desired output device and can play WAV files easily.
 
-# Appendix A: Original Phone Hardware
+## Speech Engine
+As speech engine, we now have [eSpeak](https://en.wikipedia.org/wiki/ESpeak).
+The sound is robotic, even when played through the old phone, so this is not
+going to be the final speech engine. It is trivially easy to get started with
+it, so that's why we have it for now.
+
+In the code, we pre-generate all the WAV files, so the game is rather static and
+linear. Good to test, but not much fun to play.
+
+## Game Structure
+In order to test the system, we have a very simple game engine. It keeps track
+of what location a player is in. Each location has some flavour text and a few
+options that lead to other locations (or possibly the same location). Each
+option has a number to dial and its own flavour text. This allows for a basic
+choose-your-own adventure style game.
+
+# Appendix A: Phone Hardware
 This appendix documents the phone's original hardware. It is well built and
 feels nice to handle. It is surprisingly heavy, with a body cast from so-called
 pot metal, a Zinc alloy.

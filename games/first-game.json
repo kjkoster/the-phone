@@ -1,0 +1,322 @@
+{
+    "Study": {
+        "description": "You are in the study where the scientist first contacted you.",
+        "prompt_phrases": [
+            "Detective, please! I can\u2019t think straight in this room\u2026",
+            "Hurry! I feel uneasy being here alone!",
+            "The shadows in this study make me nervous\u2026 decide quickly!",
+            "I don\u2019t want to linger here\u2026 guide me!",
+            "Every second I stay here, I feel dread creeping in!",
+            "Please, we must act before my fear overtakes me!",
+            "I\u2019m anxious\u2026 something feels off here!",
+            "The ticking clock is maddening\u2026 choose!",
+            "I feel trapped\u2026 hurry!",
+            "Detective, I beg you, decide swiftly!"
+        ],
+        "options": {
+            "1": {
+                "option_phrase": "I can step out into the street\u2026 dial 1",
+                "response_phrase": "I step cautiously into the street, peering for clues.",
+                "next_location": "Street"
+            },
+            "2": {
+                "option_phrase": "Shall I bend down and examine the body\u2026 dial 2",
+                "response_phrase": "I approach the body, trying to discern what happened.",
+                "next_location": "Body"
+            },
+            "3": {
+                "option_phrase": "If you dial three, I will pry into the desk\u2026",
+                "response_phrase": "I move to the desk, sifting through papers for hints.",
+                "next_location": "Desk"
+            }
+        }
+    },
+    "Street": {
+        "description": "The street outside is dim and foggy, faint noises echo around.",
+        "prompt_phrases": [
+            "Detective, I feel someone could jump us from the shadows!",
+            "The fog makes me uneasy\u2026 we must move quickly!",
+            "I fear being attacked if we linger here!",
+            "Something feels wrong out here\u2026 please guide me!",
+            "We can\u2019t stay in this open street\u2026 choose swiftly!",
+            "Every shadow seems alive\u2026 hurry!",
+            "I feel hunted\u2026 make a choice!",
+            "Please, detective, we must keep moving before danger finds us!",
+            "The street is too dangerous to hesitate!",
+            "I can hear footsteps\u2026 we must act!"
+        ],
+        "options": {
+            "1": {
+                "option_phrase": "Bootprints trail away\u2026 should I follow? Dial 1",
+                "response_phrase": "I follow the trail cautiously, hoping to uncover clues.",
+                "next_location": "Alley"
+            },
+            "2": {
+                "option_phrase": "A constable stands nearby\u2026 shall I question him? Dial 2",
+                "response_phrase": "I approach the policeman, asking if he noticed anything unusual.",
+                "next_location": "Policeman"
+            },
+            "3": {
+                "option_phrase": "I can retreat back into the house\u2026 dial 3",
+                "response_phrase": "I hurry back into the study, reconsidering our options.",
+                "next_location": "Study"
+            }
+        }
+    },
+    "Body": {
+        "description": "The victim lies on the ground, lifeless, with signs of a struggle.",
+        "prompt_phrases": [
+            "Detective, it\u2019s horrible\u2026 I feel sick looking at this!",
+            "I can hardly stand to see him\u2026 please decide quickly!",
+            "The sight of blood makes me shiver\u2026 act now!",
+            "Oh heavens, the wound\u2026 I\u2019m terrified\u2026 choose!",
+            "I feel nauseated\u2026 we must move before someone finds us here!",
+            "Please, detective, I can\u2019t stay near this body much longer!",
+            "Every second near him is dreadful\u2026 hurry!",
+            "The body\u2019s eyes seem to stare at me\u2026 guide me!",
+            "I am trembling\u2026 decide swiftly!",
+            "I beg you, detective, before I lose my nerve completely!"
+        ],
+        "options": {
+            "1": {
+                "option_phrase": "Do you wish me to peer at the wound\u2026 dial 1",
+                "response_phrase": "I examine the wound carefully, noting its details.",
+                "next_location": "Body"
+            },
+            "2": {
+                "option_phrase": "If you prefer, dial two, and I\u2019ll rummage in his pockets\u2026",
+                "response_phrase": "I search the victim\u2019s pockets for any evidence.",
+                "next_location": "Body"
+            },
+            "3": {
+                "option_phrase": "Or we may return to the study\u2026 dial 3",
+                "response_phrase": "I head back to the study, pondering our next steps.",
+                "next_location": "Study"
+            }
+        }
+    },
+    "Desk": {
+        "description": "A cluttered desk holds papers, a quill, and a locked drawer.",
+        "prompt_phrases": [
+            "Detective, perhaps the desk holds secrets\u2026 I must find them quickly!",
+            "I feel anxious sifting through this mess\u2026 hurry!",
+            "Time is critical\u2026 what should I look at first?",
+            "These papers could be important\u2026 decide!",
+            "I fear leaving clues behind if I delay\u2026 act now!",
+            "The drawer seems promising, but I\u2019m nervous\u2026 choose!",
+            "I can\u2019t waste time on trifles\u2026 guide me!",
+            "The quill shakes in my hand\u2026 hurry, detective!",
+            "Please, decide soon\u2026 I\u2019m uneasy here!",
+            "Something may reveal the truth\u2026 quickly!"
+        ],
+        "options": {
+            "1": {
+                "option_phrase": "Should I inspect the scattered papers\u2026 dial 1",
+                "response_phrase": "I sift through the papers, noting anything unusual.",
+                "next_location": "Desk"
+            },
+            "2": {
+                "option_phrase": "I could examine the locked drawer\u2026 dial 2",
+                "response_phrase": "I try the drawer, hoping to find a clue inside.",
+                "next_location": "Drawer"
+            },
+            "3": {
+                "option_phrase": "Or step back into the study\u2026 dial 3",
+                "response_phrase": "I return to the study, regrouping our approach.",
+                "next_location": "Study"
+            }
+        }
+    },
+    "Drawer": {
+        "description": "A locked drawer that might contain hidden evidence.",
+        "prompt_phrases": [
+            "Detective, the drawer might hide the truth\u2026 we must open it!",
+            "I tremble at what we might find\u2026 choose quickly!",
+            "Time is fleeting\u2026 I\u2019m anxious to see inside!",
+            "Hurry, detective, every second counts!",
+            "I fear someone might return\u2026 act now!",
+            "The lock resists my hand\u2026 please guide me!",
+            "I am nervous, but we must see the contents\u2026",
+            "Decide swiftly, detective, I\u2019m uneasy here!",
+            "I feel like I\u2019m being watched\u2026 hurry!",
+            "Every moment we wait, evidence may disappear!"
+        ],
+        "options": {
+            "1": {
+                "option_phrase": "Try to pick the lock\u2026 dial 1",
+                "response_phrase": "I attempt to pick the lock, hoping for success.",
+                "next_location": "Drawer"
+            },
+            "2": {
+                "option_phrase": "Examine the papers nearby instead\u2026 dial 2",
+                "response_phrase": "I scrutinize the papers for anything revealing.",
+                "next_location": "Desk"
+            },
+            "3": {
+                "option_phrase": "Return to the study\u2026 dial 3",
+                "response_phrase": "I step back into the study to reconsider our plan.",
+                "next_location": "Study"
+            }
+        }
+    },
+    "Alley": {
+        "description": "A narrow alley, shadows lurk in every corner.",
+        "prompt_phrases": [
+            "Detective, the alley is sinister\u2026 I fear being ambushed!",
+            "The darkness feels alive\u2026 we must move!",
+            "I can hear every footstep echoing\u2026 act now!",
+            "Something might jump us from the shadows\u2026 choose quickly!",
+            "I shiver at this place\u2026 guide me, detective!",
+            "We cannot linger\u2026 danger could be near!",
+            "Every second here feels perilous\u2026 hurry!",
+            "I feel eyes on us\u2026 decide!",
+            "Please, act before we are discovered!",
+            "The alley\u2019s darkness hides threats\u2026 quickly!"
+        ],
+        "options": {
+            "1": {
+                "option_phrase": "Follow the faint light ahead\u2026 dial 1",
+                "response_phrase": "I move toward the faint light, wary of what\u2019s lurking.",
+                "next_location": "Laboratory"
+            },
+            "2": {
+                "option_phrase": "Return to the street\u2026 dial 2",
+                "response_phrase": "I backtrack to the safety of the street.",
+                "next_location": "Street"
+            },
+            "3": {
+                "option_phrase": "Investigate the shadowed doorway\u2026 dial 3",
+                "response_phrase": "I peer into the dark doorway, heart racing.",
+                "next_location": "BackDoor"
+            }
+        }
+    },
+    "Policeman": {
+        "description": "A lone constable, looking alert but suspicious.",
+        "prompt_phrases": [
+            "Detective, he might not be trustworthy\u2026 decide quickly!",
+            "I\u2019m uneasy approaching him\u2026 hurry!",
+            "We need his information before he moves on!",
+            "Every moment wasted could alert others\u2026 act!",
+            "I tremble near his stern gaze\u2026 choose!",
+            "Please, detective, guide me\u2026 I feel watched!",
+            "Time is slipping\u2026 we need answers!",
+            "I can sense tension\u2026 act quickly!",
+            "The constable may not stay here long\u2026 decide!",
+            "I\u2019m nervous\u2026 every second counts!"
+        ],
+        "options": {
+            "1": {
+                "option_phrase": "Ask about suspicious persons\u2026 dial 1",
+                "response_phrase": "I question him about anyone unusual in the area.",
+                "next_location": "Policeman"
+            },
+            "2": {
+                "option_phrase": "Ask if he saw a struggle\u2026 dial 2",
+                "response_phrase": "I inquire if he witnessed a fight or disturbance.",
+                "next_location": "Policeman"
+            },
+            "3": {
+                "option_phrase": "Return to the street\u2026 dial 3",
+                "response_phrase": "I retreat to the street to reconsider our options.",
+                "next_location": "Street"
+            }
+        }
+    },
+    "BackDoor": {
+        "description": "A hidden door at the back, leading to an unknown room.",
+        "prompt_phrases": [
+            "Detective, this could be dangerous\u2026 should we enter?",
+            "I feel a chill\u2026 hurry!",
+            "Every second outside this door is tense\u2026 act!",
+            "I sense danger inside\u2026 choose quickly!",
+            "Please, detective, we can\u2019t hesitate here!",
+            "My heart races at this entrance\u2026 decide!",
+            "I fear what might be waiting\u2026 move!",
+            "Time is slipping\u2026 guide me!",
+            "The door creaks ominously\u2026 act swiftly!",
+            "I beg you, detective, before curiosity costs us!"
+        ],
+        "options": {
+            "1": {
+                "option_phrase": "Open the door slowly\u2026 dial 1",
+                "response_phrase": "I ease the door open, peering into darkness.",
+                "next_location": "Bedroom"
+            },
+            "2": {
+                "option_phrase": "Step back to the alley\u2026 dial 2",
+                "response_phrase": "I retreat to the relative safety of the alley.",
+                "next_location": "Alley"
+            },
+            "3": {
+                "option_phrase": "Listen carefully outside\u2026 dial 3",
+                "response_phrase": "I press my ear to the door, straining to hear.",
+                "next_location": "BackDoor"
+            }
+        }
+    },
+    "Bedroom": {
+        "description": "A lavish bedroom, slightly disheveled, curtains drawn.",
+        "prompt_phrases": [
+            "Detective, it\u2019s quiet\u2026 too quiet\u2026 should we investigate?",
+            "I fear someone could be hiding here\u2026 act quickly!",
+            "Every shadow in this room unsettles me\u2026 decide!",
+            "Please, detective, move before we miss a clue!",
+            "I\u2019m anxious\u2026 the curtains make it darker\u2026 hurry!",
+            "Something feels off\u2026 we must act!",
+            "My hands tremble\u2026 guide me!",
+            "Time is pressing\u2026 we can\u2019t linger!",
+            "I feel eyes on us even in this empty room\u2026 choose!",
+            "Detective, I beg you, act before we lose the trail!"
+        ],
+        "options": {
+            "1": {
+                "option_phrase": "Search the drawers\u2026 dial 1",
+                "response_phrase": "I open the drawers, hoping to uncover evidence.",
+                "next_location": "Drawer"
+            },
+            "2": {
+                "option_phrase": "Look under the bed\u2026 dial 2",
+                "response_phrase": "I peer beneath the bed, heart pounding.",
+                "next_location": "Bedroom"
+            },
+            "3": {
+                "option_phrase": "Return to the back door\u2026 dial 3",
+                "response_phrase": "I step back to the hidden back entrance.",
+                "next_location": "BackDoor"
+            }
+        }
+    },
+    "Laboratory": {
+        "description": "The laboratory reeks of chemicals, glass vials glint in the dim light.",
+        "prompt_phrases": [
+            "Detective, the fumes sting my eyes\u2026 we must act quickly!",
+            "This room feels dangerous\u2026 choose swiftly!",
+            "The vials could shatter at any moment\u2026 hurry!",
+            "I tremble surrounded by strange apparatus\u2026 act!",
+            "Please, detective, something about this place unnerves me!",
+            "I fear poisoning just standing here\u2026 decide!",
+            "The shadows hide all manner of dangers\u2026 hurry!",
+            "Every second in here feels perilous!",
+            "I can almost hear the glass creaking\u2026 choose quickly!",
+            "Detective, I beg you, before the chemicals overwhelm me!"
+        ],
+        "options": {
+            "1": {
+                "option_phrase": "Shall I inspect the chemical vials\u2026 dial 1",
+                "response_phrase": "I peer at the vials, trying to discern their contents.",
+                "next_location": "Laboratory"
+            },
+            "2": {
+                "option_phrase": "There\u2019s a journal on the bench\u2026 dial 2",
+                "response_phrase": "I flip through the scientist\u2019s journal, noting entries.",
+                "next_location": "Laboratory"
+            },
+            "3": {
+                "option_phrase": "If you wish me to leave, dial 3",
+                "response_phrase": "I slip out of the laboratory into the alley again.",
+                "next_location": "Alley"
+            }
+        }
+    }
+}
