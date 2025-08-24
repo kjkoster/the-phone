@@ -57,6 +57,20 @@ it, so that's why we have it for now.
 In the code, we pre-generate all the WAV files, so the game is rather static and
 linear. Good to test, but not much fun to play.
 
+## Game Start Trigger 
+Ideally the game should start as soon as the player lifts the handset.
+Unfortunately this phone does not have an electrical hook switch, so the program
+cannot actually detect the handset being lifted from the hook. Hook on/off
+detection is purely mechanical.
+
+Thus, for the game to start the player has to lift the handset and press a
+button. It seems intuitive to use the left-most button for that purpose. It has
+a nice, heavy feel to it and will reset with a solid click sound when the
+handset is placed back on the hook.
+
+Note: in the future, we might flash the left ring indicator to invite players to
+press that button, but let's have buttons working first.
+
 ## Game Structure
 In order to test the system, we have a very simple game engine. It keeps track
 of what location a player is in. Each location has some flavour text and a few
@@ -102,6 +116,37 @@ cleaning from what looked like nicotine stains.
 The handset is wired as follows: blue for the common ground, red for the speaker
 and yellow for the earpiece speaker. The speaker is marked _15088-350Ω-PTT
 82-06_. The microphone is marked _3 - 69 TMC 52182 - A - 100Ω - P.T.T._
+
+## Hook
+The hook is purely mechanical. There are no electrical contacts for the hook, so
+there is no way to detect the handset being lifted off the hook.
+
+The hook physically resets the latches on the two outermost front panel switches.
+
+## Front Panel Switches
+This phone must have been something of an office phone switch router. It has
+seven labelled switches on the front panel. The switches are linked mechanically
+to enforce some kind of order of operation.
+
+The outer two switches operate a block of normally open contacts. They are also
+configured as mechanical radio buttons, in the sense that pressing one will
+disengage and reset the other. The placing the horn on the hook mechanically
+resets both of these outermost switches to their off-state. In fact, the
+switches can only be operated with the headset off hook. This is shown in the
+state diagram below.
+
+<p align="center" width="100%">
+    <img width="80%" src="images/hardware-button-states.png">
+</p>
+
+After lifting the hook, it seems that the user was expected to always press A
+first, since that engages switch pack a1. Switch pack a1 then remains engaged
+until the handset is placed back on the hook.
+
+The lower middle switches are five normally open, monentary switches. These can
+be pressed at any time.
+
+The label seems to be a simple paper strip.
 
 ## Rotary Dial
 The rotary dial seems to be more modern than the rest of the phone. Its cover is
