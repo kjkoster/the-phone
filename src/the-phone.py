@@ -2,6 +2,7 @@ import os
 import json
 import hashlib
 import subprocess
+import numpy as np
 import soundfile as sf
 import sounddevice as sd
 
@@ -30,7 +31,7 @@ def generate_audio(text):
         print(f"generating {filename}...")
 
         subprocess.run(
-            f'espeak "{text}" -v en-whisper --stdout | sox -r 22050 -t wav - -r {SAMPLE_RATE} -c 1 -b 16 "{filename}"',
+            f'espeak "{text}" -v en --stdout | sox -r 22050 -t wav - -r {SAMPLE_RATE} -c 1 -b 16 "{filename}"',
             shell=True,
             check=True
         )
@@ -38,16 +39,16 @@ def generate_audio(text):
     return filename
 
 
-
 def play_audio(filename):
     data, samplerate = sf.read(filename, dtype="float32", always_2d=False)
     print(f"playing {filename}@{samplerate} Hz...")
     if samplerate != SAMPLE_RATE:
         print(f"sample rate mismatch on {filename}: expected {SAMPLE_RATE}, found {samplerate}.")
-    # sd.play(data, SAMPLE_RATE, blocking=True, blocksize=8192, latency='high')
+
+    data = data * 6.0
+    data = np.clip(data, -1.0, 1.0)
+
     sd.play(data, SAMPLE_RATE, device=0, blocking=True)
-
-
 
 
 def preload_all_audio(game_state):
@@ -78,13 +79,11 @@ def play_game(game_state, start="Study"):
                 return
 
         play_audio(generate_audio(node["options"][choice]["response_phrase"]))
-
         location = node["options"][choice]["next_location"]
 
 def main():
     with open(f"{GAME_DIR}/first-game.json", "r", encoding="utf-8") as f:
         game_state = json.load(f)
-        # XXX print(game_state)
 
     print("Default samplerate:", sd.default.samplerate)
     print("Default blocksize:", sd.default.blocksize)
