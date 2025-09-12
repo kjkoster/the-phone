@@ -7,9 +7,19 @@ A game on a rotary phone.
 
 ## Project Objective
 The current project objective is to play a very simple game on an old rotary
-phone that I got. The player picks up the handset and is drawn into a murder
+phone that I got. The player picks up the handset, switches the device on
+(hardware limitation, we cannot detect off-hook) and is drawn into a murder
 mystery. The player hears the story on the headset and can decide actions using
 the rotary dial.
+
+## Programming Language
+This project is best done in Python. It needs good access to the GPIO pins of
+the Raspberry Pi, but also needs fairly advanced audio processing and (in the
+future, maybe) speech recognition. Python can do all of those easily.
+
+Python has an excellend library called
+[sounddevice](https://pypi.org/project/sounddevice/) that handles selecting the
+desired output device and can play WAV files easily.
 
 ## Playing Audio
 The first order of business is to be able to play audio. The Raspberry Pi has a
@@ -25,28 +35,19 @@ can easily overdrive old, high efficiency speakers with too much current. The
 high voltages and currents can overheat and damage the fragile coil.
 
 For this project, we use a Raspberry Pi specifically. The headphone jack on a
-Raspberry Pi is actually quite bad, by modern standards. at approximately _100Ω_
-it is quite high impedance and its voltage range is quite limited. Lucky for us,
-it is unlikely to overpower a vintage speaker driver. In fact, we may have
-problems getting the volume up high enough to hear well.
+Raspberry Pi is actually quite bad by modern standards. at approximately _100Ω_
+it is quite high impedance and its voltage range is limited. Lucky for us, it is
+unlikely to overpower a vintage speaker driver. In fact, we may have problems
+getting the volume up high enough to hear well.
 
 The Raspberry Pi has other problems with audio, though. It is not very fast and
-has trouble with the real-time requirements of audio playback. Bad quality once
-more saves us here. The vintage telephone speakers could only play sound up to
+has trouble with the real-time requirements of audio playback. Bad quality saves
+us here as well. The vintage telephone speakers could only play sound up to
 about _3400Hz_, which is why telephone equipment typically uses a sample rate of
 _8000Hz_. That is far lower than the sample rate needed to play music. By
 playing the audio samples at an 8000Hz sample rate, we give the processor more
 time to load the audio into the playback buffers. This resolved buffer underrun
 issues.
-
-## Programming Language
-This project is best done in Python. It needs good access to the GPIO pins of
-the Raspberry Pi, but also needs fairly advanced audio processing and (in the
-future, maybe) speech recognition. Python can do all of those easily.
-
-Python has an excellend library called
-[sounddevice](https://pypi.org/project/sounddevice/) that handles selecting the
-desired output device and can play WAV files easily.
 
 ## Speech Engine
 As speech engine, we now have [eSpeak](https://en.wikipedia.org/wiki/ESpeak).
@@ -56,6 +57,23 @@ it, so that's why we have it for now.
 
 In the code, we pre-generate all the WAV files, so the game is rather static and
 linear. Good to test, but not much fun to play.
+
+## Accessing Buttons in Code
+The buttons are available in code using the GPIO pins of the Raspberry Pi. The
+table below shows what button can be read using what GPIO pin.
+
+| name | type | operated by | GPIO pin |
+|----|------------------|--------------------|---------|
+| a1 | toggle           | toggle A and hook  | GPIO 17 |
+| a2 | radio-button     | toggle A           | GPIO 27 |
+| b  | radio-button     | toggle B           | GPIO 22 |
+| c1 | momentary switch | switch C1          | GPIO 23 |
+| c2 | momentary switch | switch C2          | GPIO 24 |
+| c3 | momentary switch | switch C3          | GPIO 25 |
+| c4 | momentary switch | switch C4          | GPIO 8  |
+| c5 | momentary switch | switch C5          | GPIO 7  |
+
+All buttons are wired to be normally-open contacts and to be active-low.
 
 ## Game Start Trigger 
 Ideally the game should start as soon as the player lifts the handset.
@@ -87,8 +105,8 @@ pot metal, a Zinc alloy.
     <img width="80%" src="images/hardware-the-phone.jpg">
 </p>
 
-PTT most likely refers to the only Dutch telecom operator at the time, called
-_Staatsbedrijf der Posterijen, Telegrafie en Telefonie_.
+PTT most likely refers to what was the only Dutch telecom operator at the time,
+called _Staatsbedrijf der Posterijen, Telegrafie en Telefonie_ (PTT).
 
 This particular device seems to be assembled from parts of different phones. The
 rotary dial is clear plastic and the original dial would probably have been
@@ -101,7 +119,7 @@ non-original parts.
 ## Wiring and Clamps
 The device is clearly built for servicability. Components are screwed in place,
 and there as a number of clamps that allow easy configuration changes. The looms
-have been hand-tied to be neat and tidy.
+have been hand-tied to be neat and tidy. This is quality craftsmanship.
 
 ## The Handset
 The handset feels really nice when handled. Someone spilled a lick of silver
@@ -121,19 +139,21 @@ and yellow for the earpiece speaker. The speaker is marked _15088-350Ω-PTT
 The hook is purely mechanical. There are no electrical contacts for the hook, so
 there is no way to detect the handset being lifted off the hook.
 
-The hook physically resets the latches on the two outermost front panel switches.
+The hook physically resets the latches on the two outermost front panel
+switches, so we can use that to detect when the horn is placded back onto the
+hook.
 
 ## Front Panel Switches
 This phone must have been something of an office phone switch router. It has
 seven labelled switches on the front panel. The switches are linked mechanically
 to enforce some kind of order of operation.
 
-The outer two switches operate a block of normally open contacts. They are also
-configured as mechanical radio buttons, in the sense that pressing one will
-disengage and reset the other. The placing the horn on the hook mechanically
-resets both of these outermost switches to their off-state. In fact, the
-switches can only be operated with the headset off hook. This is shown in the
-state diagram below.
+The outer two switches operate a block of various types of switch contacts. They
+are also configured as mechanical radio buttons: pressing one will disengage and
+reset the other. The placing the horn on the hook mechanically resets both of
+these outermost switches to their off-state. In fact, the switches can only be
+operated with the headset off hook. This, and more, is shown in the state
+diagram below.
 
 <p align="center" width="100%">
     <img width="80%" src="images/hardware-button-states.png">
