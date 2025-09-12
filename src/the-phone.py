@@ -31,6 +31,8 @@ switch_c5  = None
 
 AUDIO_CACHE = {}
 
+choice = None
+
 def load_audio(filename):
     if not os.path.exists(filename):
         raise FileNotFoundError(f"Missing audio file: {filename}")
@@ -57,25 +59,22 @@ def preload_all_audio(game_state):
 
 
 def play_game(game_state, start="Study"):
+    global choice
+
     location = start
     while True:
         node = game_state[location]
 
         play_audio(node["description"])
 
+        choice = None
         for option in node["options"].values():
             play_audio(option["option_phrase"])
+            if choice is not None:
+                break
 
-        choice = None
-        while choice not in node["options"]:
-            if switch_c1.is_pressed:
-                choice = '1'
-            elif switch_c2.is_pressed:
-                choice = '2'
-            elif switch_c3.is_pressed:
-                choice = '3'
-            else:
-                time.sleep(0.05)
+        while choice is None or choice not in node["options"]:
+            time.sleep(0.05)
 
         play_audio(node["options"][choice]["response_phrase"])
         location = node["options"][choice]["next_location"]
@@ -111,8 +110,11 @@ def gpio_setup():
     radio_b = Button(RADIO_B_GPIO, pull_up=True, bounce_time=0.2)
 
     switch_c1 = Button(SWITCH_C1_GPIO, pull_up=True, bounce_time=0.2)
+    switch_c1.when_pressed = lambda: globals().__setitem__('choice', '1')
     switch_c2 = Button(SWITCH_C2_GPIO, pull_up=True, bounce_time=0.2)
+    switch_c2.when_pressed = lambda: globals().__setitem__('choice', '2')
     switch_c3 = Button(SWITCH_C3_GPIO, pull_up=True, bounce_time=0.2)
+    switch_c3.when_pressed = lambda: globals().__setitem__('choice', '3')
     switch_c4 = Button(SWITCH_C4_GPIO, pull_up=True, bounce_time=0.2)
     switch_c5 = Button(SWITCH_C5_GPIO, pull_up=True, bounce_time=0.2)
 
