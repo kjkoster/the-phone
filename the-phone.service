@@ -1,0 +1,16 @@
+[Unit]
+Description=The Phone Game Service
+After=network.target
+
+[Service]
+Type=simple
+User=kjkoster
+WorkingDirectory=/usr/local/the-phone
+# Point to your virtual environment's python
+ExecStart=/usr/local/the-phone/venv/bin/python /usr/local/the-phone/the-phone.py
+Restart=always
+RestartSec=1
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
