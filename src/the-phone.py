@@ -54,8 +54,6 @@ def play_audio(filename):
 def preload_all_audio(game_state):
     for loc, node in game_state.items():
         generate_audio(node["description"])
-        for phrase in node["prompt_phrases"]:
-            generate_audio(phrase)
         for option in node["options"].values():
             generate_audio(option["option_phrase"])
             generate_audio(option["response_phrase"])
