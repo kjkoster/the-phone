@@ -5,6 +5,13 @@
 # service on the device.
 #
 
+if [ ${#} -ne 1 ]; then
+	echo "usage: deploy.sh <hostname>"
+	exit 1
+fi
+HOST=${1}
+DEPLOYDIR=/home/the-phone
+
 echo "Stage 1: Build"
 
 # We take the game definition file and generate the WAV files from all of the
@@ -18,16 +25,12 @@ echo "Stage 1: Build"
 )
 
 echo ""
-echo "Stage 2: Deploy"
+echo "Stage 2: Deploying to ${HOST}:${DEPLOYDIR}"
 
 # With all the voice clips generated, it is time to copy everything over to the
 # Raspberry Pi inside the telephone.
 
-DEPLOYDIR=/usr/local/the-phone
-
-ssh phonepi.local sudo mkdir -p ${DEPLOYDIR}
-ssh phonepi.local sudo chown kjkoster:kjkoster ${DEPLOYDIR}
-scp build/* src/requirements.txt src/the-phone.py the-phone.service phonepi.local:${DEPLOYDIR}
+scp build/* src/requirements.txt src/the-phone.py the-phone.service ${HOST}:${DEPLOYDIR}
 
 echo ""
 echo "Stage 3: Install Virtual Environment"
@@ -35,8 +38,9 @@ echo "Stage 3: Install Virtual Environment"
 # With all the files on the phone's Raspberry Pi, set up a virtual environment
 # for the game to run in.
 
-ssh phonepi.local /bin/bash << EOF
+ssh ${HOST} /bin/bash << EOF
 cd ${DEPLOYDIR}
+sudo apt-get install -y portaudio19-dev python3-gpiozero
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -47,7 +51,7 @@ echo "Stage 4: Daemonise"
 
 # Finally, set up the service daemon to run the game continuously.
 
-ssh phonepi.local /bin/bash << EOF
+ssh ${HOST} /bin/bash << EOF
 sudo cp ${DEPLOYDIR}/the-phone.service /etc/systemd/system/the-phone.service
 sudo systemctl daemon-reload
 sudo systemctl enable the-phone.service
