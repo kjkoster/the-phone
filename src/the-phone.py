@@ -11,23 +11,28 @@ SAMPLE_RATE = 8000 # Hz
 
 running = False
 
-TOGGLE_A1_GPIO = 17
-RADIO_A2_GPIO  = 27
-RADIO_B_GPIO   = 22
-SWITCH_C1_GPIO = 23
-SWITCH_C2_GPIO = 24
-SWITCH_C3_GPIO = 25
-SWITCH_C4_GPIO = 8
-SWITCH_C5_GPIO = 7
+TOGGLE_A1_GPIO    = 17
+RADIO_A2_GPIO     = 27
+RADIO_B_GPIO      = 22
+SWITCH_C1_GPIO    = 23
+SWITCH_C2_GPIO    = 24
+SWITCH_C3_GPIO    = 25
+SWITCH_C4_GPIO    = 8
+SWITCH_C5_GPIO    = 7
+ROTARY_DIAL_GPIO  = 5
+ROTARY_PULSE_GPIO = 6
 
-toggle_a1  = None
-radio_a2   = None
-radio_b    = None
-switch_c1  = None
-switch_c2  = None
-switch_c3  = None
-switch_c4  = None
-switch_c5  = None
+toggle_a1    = None
+radio_a2     = None
+radio_b      = None
+switch_c1    = None
+switch_c2    = None
+switch_c3    = None
+switch_c4    = None
+switch_c5    = None
+rotary_dial  = None
+rotary_pulse = None
+rotary_count = 0
 
 AUDIO_CACHE = {}
 
@@ -89,6 +94,8 @@ def gpio_setup():
     global switch_c3
     global switch_c4
     global switch_c5
+    global rotary_dial
+    global rotary_pulse
 
     toggle_a1 = Button(TOGGLE_A1_GPIO, pull_up=True, bounce_time=0.2)
 
@@ -118,6 +125,27 @@ def gpio_setup():
     switch_c4 = Button(SWITCH_C4_GPIO, pull_up=True, bounce_time=0.2)
     switch_c5 = Button(SWITCH_C5_GPIO, pull_up=True, bounce_time=0.2)
 
+    def dial_started():
+        global rotary_count
+        rotary_count = 0
+        print("Dial started...")
+
+    def dial_ended():
+        global choice, rotary_count
+        choice = str(rotary_count - 1)
+        print(f"Dial ended, number dialled: {choice}")
+
+    def pulse_detected():
+        global rotary_count
+        rotary_count += 1
+        print(f"Pulse detected: {rotary_count}")
+
+    rotary_dial = Button(ROTARY_DIAL_GPIO, pull_up=True, bounce_time=0.01)
+    rotary_dial.when_pressed = dial_started
+    rotary_dial.when_released = dial_ended
+
+    rotary_pulse = Button(ROTARY_PULSE_GPIO, pull_up=True, bounce_time=0.01)
+    rotary_pulse.when_pressed = pulse_detected
 
 def main():
     global running
